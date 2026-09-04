@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>悉尼独行 · 10.30–11.2</title>
+<style>
+  :root{
+    --ink:#16232B;
+    --paper:#F2ECDE;
+    --paper-2:#E8E0CC;
+    --line:#C9BFA4;
+    --harbor:#1F5C66;
+    --harbor-2:#2A7F86;
+    --coral:#E1673E;
+    --gold:#C79A3E;
+    --card-shadow: 4px 4px 0 rgba(22,35,43,0.08);
+    --radius: 2px;
+  }
+  [data-theme="night"]{
+    --ink:#EFE9D8;
+    --paper:#101A20;
+    --paper-2:#16232B;
+    --line:#33454F;
+    --harbor:#4CA6AE;
+    --harbor-2:#5FBFC6;
+    --coral:#F0895F;
+    --gold:#D9B25C;
+    --card-shadow: 4px 4px 0 rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family: "Iowan Old Style","Palatino Linotype","Songti SC",Georgia,serif;
+    transition: background .4s ease, color .4s ease;
+    line-height:1.5;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:0 18px 80px;}
+  .masthead{
+    padding:28px 0 14px;
+    display:flex;justify-content:space-between;align-items:flex-end;
+    border-bottom:2px solid var(--ink);
+  }
+  .masthead h1{
+    font-size:26px;margin:0;font-weight:600;letter-spacing:.5px;
+  }
+  .masthead .sub{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:12px;color:var(--harbor-2);margin-top:4px;
+  }
+  .theme-note{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:11px;color:var(--line);text-align:right;
+  }
+
+  /* Focus / countdown card */
+  .focus{
+    margin-top:20px;
+    background:var(--paper-2);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:20px 22px;
+    box-shadow:var(--card-shadow);
+  }
+  .focus .label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:12px;color:var(--harbor-2);
+  }
+  .focus .event{
+    font-size:21px;margin:6px 0 2px;font-weight:600;
+  }
+  .focus .event-time{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;color:var(--ink);opacity:.75;margin-bottom:12px;
+  }
+  .countdown{
+    display:flex;gap:14px;
+  }
+  .countdown .unit{text-align:left;}
+  .countdown .num{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:32px;font-weight:700;color:var(--coral);
+    font-variant-numeric: tabular-nums;
+    line-height:1;
+  }
+  .countdown .u-label{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:10px;color:var(--ink);opacity:.6;
+  }
+
+  section{margin-top:38px;}
+  h2{
+    font-size:15px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-weight:700;
+    color:var(--harbor);
+    border-bottom:1px solid var(--line);
+    padding-bottom:8px;
+    margin-bottom:16px;
+  }
+
+  /* Map */
+  .map-box{
+    border:1px solid var(--line);
+    background:var(--paper-2);
+    border-radius:var(--radius);
+    padding:10px;
+    box-shadow:var(--card-shadow);
+  }
+  .map-legend{
+    display:flex;flex-wrap:wrap;gap:10px 16px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:11px;margin-top:10px;color:var(--ink);opacity:.85;
+  }
+  .map-legend span{display:inline-flex;align-items:center;gap:5px;}
+  .swatch{width:10px;height:10px;border-radius:50%;display:inline-block;}
+
+  /* Confirmed list */
+  .confirmed{list-style:none;padding:0;margin:0;}
+  .confirmed li{
+    display:flex;gap:12px;padding:10px 0;
+    border-bottom:1px dashed var(--line);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+  }
+  .confirmed li:last-child{border-bottom:none;}
+  .confirmed .ico{font-size:17px;flex-shrink:0;width:22px;}
+  .confirmed .txt b{font-family:inherit;font-weight:600;}
+  .confirmed .txt .meta{opacity:.65;font-size:12px;display:block;margin-top:1px;}
+
+  /* Day timeline */
+  .day-block{margin-bottom:26px;}
+  .day-head{
+    display:flex;justify-content:space-between;align-items:center;
+    cursor:pointer;
+    padding:8px 12px;
+    background:var(--paper-2);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+  }
+  .day-head .d-title{font-size:16px;font-weight:600;}
+  .day-head .d-sub{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:11px;opacity:.6;
+  }
+  .day-route-btn{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:11px;
+    background:none;border:1px solid var(--harbor-2);
+    color:var(--harbor-2);
+    padding:5px 10px;border-radius:20px;cursor:pointer;
+    white-space:nowrap;
+  }
+  .day-route-btn:hover{background:var(--harbor-2);color:var(--paper);}
+
+  .day-block.today .day-head{
+    border-color:var(--coral);
+    background:var(--coral);
+  }
+  .day-block.today .day-head .d-title,
+  .day-block.today .day-head .d-sub{color:var(--paper);}
+  .day-block.today .day-head .d-sub::before{content:"今天 · ";font-weight:700;}
+  .day-block.today .day-route-btn{border-color:var(--paper);color:var(--paper);}
+
+  .day-map{
+    max-height:0;overflow:hidden;
+    transition:max-height .35s ease;
+    border:1px solid var(--line);border-top:none;
+    border-radius:0 0 var(--radius) var(--radius);
+  }
+  .day-map.open{max-height:280px;}
+  .day-map iframe{width:100%;height:240px;border:0;display:block;filter:grayscale(.15) contrast(1.02);}
+  .day-map .map-fallback{
+    font-family:"Helvetica Neue",Arial,sans-serif;font-size:11px;
+    padding:8px 12px;color:var(--ink);opacity:.55;
+  }
+
+  .timeline{
+    position:relative;
+    margin:14px 0 0 10px;
+    padding-left:18px;
+    border-left:2px dashed var(--line);
+  }
+  .t-item{position:relative;padding-bottom:18px;}
+  .t-item:last-child{padding-bottom:0;}
+  .t-item::before{
+    content:"";position:absolute;left:-24px;top:4px;
+    width:9px;height:9px;border-radius:50%;
+    background:var(--dot,var(--harbor-2));
+    border:2px solid var(--paper);
+  }
+  .t-time{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:11px;color:var(--coral);font-weight:700;
+  }
+  .t-title{
+    font-size:15.5px;margin:2px 0;cursor:pointer;
+    text-decoration:underline dotted var(--line);
+    text-underline-offset:3px;
+  }
+  .t-title:hover{color:var(--harbor-2);}
+  .t-note{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:12.5px;opacity:.72;
+  }
+
+  /* Todo */
+  .todo-list{list-style:none;padding:0;margin:0;}
+  .todo-list li{
+    display:flex;align-items:flex-start;gap:10px;
+    padding:8px 0;border-bottom:1px dashed var(--line);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13.5px;
+  }
+  .todo-list li:last-child{border-bottom:none;}
+  .todo-list input{margin-top:3px;width:15px;height:15px;accent-color:var(--coral);flex-shrink:0;}
+  .todo-list li.done label{text-decoration:line-through;opacity:.45;}
+  .todo-reset{
+    margin-top:10px;background:none;border:none;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:11px;color:var(--line);text-decoration:underline;cursor:pointer;padding:0;
+  }
+
+  /* Tips + risk */
+  .tips{padding-left:0;list-style:none;margin:0;}
+  .tips li{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;padding:7px 0 7px 20px;position:relative;
+    border-bottom:1px dashed var(--line);
+  }
+  .tips li:last-child{border-bottom:none;}
+  .tips li::before{content:"·";position:absolute;left:4px;top:6px;color:var(--gold);font-size:20px;}
+
+  .risk{
+    margin-top:16px;
+    border:1px solid var(--coral);
+    background:var(--paper-2);
+    padding:14px 16px;
+    border-radius:var(--radius);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:12.5px;
+  }
+  .risk b{color:var(--coral);}
+  .risk ul{margin:8px 0 0;padding-left:18px;}
+  .risk li{margin-bottom:6px;}
+
+  footer{
+    margin-top:50px;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:11px;color:var(--line);text-align:center;
+  }
+</style>
+</head>
+<body data-theme="day">
+<div class="wrap">
+
+  <div class="masthead">
+    <div>
+      <h1>悉尼独行</h1>
+      <div class="sub">10月30日 – 11月2日 · 一人 · 出发地 Alice Springs</div>
+    </div>
+    <div class="theme-note" id="themeNote">日间模式</div>
+  </div>
+
+  <div class="focus" id="focusCard">
+    <div class="label">此刻关注</div>
+    <div class="event" id="focusEvent">加载中…</div>
+    <div class="event-time" id="focusTime"></div>
+    <div class="countdown" id="countdown">
+      <div class="unit"><div class="num" id="cd-d">–</div><div class="u-label">天</div></div>
+      <div class="unit"><div class="num" id="cd-h">–</div><div class="u-label">时</div></div>
+      <div class="unit"><div class="num" id="cd-m">–</div><div class="u-label">分</div></div>
+      <div class="unit"><div class="num" id="cd-s">–</div><div class="u-label">秒</div></div>
+    </div>
+  </div>
+
+  <section>
+    <h2>行程总览</h2>
+    <div class="map-box">
+      <svg viewBox="0 0 400 460" width="100%" style="display:block;">
+        <defs>
+          <filter id="rough" x="-20%" y="-20%" width="140%" height="140%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="7" result="noise"/>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="4"/>
+          </filter>
+        </defs>
+        <!-- routes -->
+        <g fill="none" stroke-linecap="round" filter="url(#rough)">
+          <!-- day1: airport -> hotel -->
+          <path d="M255,405 Q235,360 200,300" stroke="#9C948A" stroke-width="2.5" stroke-dasharray="1 7"/>
+          <!-- day2: hotel -> milsons point -> hotel -> olympic park -->
+          <path d="M200,300 Q185,230 172,150" stroke="#E1673E" stroke-width="2.5" stroke-dasharray="1 7"/>
+          <path d="M172,150 Q185,230 200,300" stroke="#E1673E" stroke-width="2.5" stroke-dasharray="1 7"/>
+          <path d="M200,300 Q140,325 108,345" stroke="#E1673E" stroke-width="2.5" stroke-dasharray="1 7"/>
+          <path d="M108,345 Q95,350 85,352" stroke="#E1673E" stroke-width="2.5" stroke-dasharray="1 7"/>
+          <!-- day3: hotel -> bondi -> coogee -> hotel -->
+          <path d="M200,300 Q265,255 328,232" stroke="#2A7F86" stroke-width="2.5" stroke-dasharray="1 7"/>
+          <path d="M328,232 Q345,265 338,300" stroke="#2A7F86" stroke-width="2.5" stroke-dasharray="1 7"/>
+          <path d="M338,300 Q270,320 200,300" stroke="#2A7F86" stroke-width="2.5" stroke-dasharray="1 7"/>
+          <!-- day4: hotel -> airport -->
+          <path d="M200,300 Q235,360 255,405" stroke="#16232B" stroke-width="2.5" stroke-dasharray="1 7"/>
+          <!-- harbour bridge gesture -->
+          <path d="M182,168 Q177,140 172,150" stroke="#8FA3AA" stroke-width="1.5"/>
+        </g>
+        <!-- points -->
+        <g font-family="Helvetica Neue, Arial, sans-serif" font-size="10.5">
+          <circle cx="200" cy="300" r="6" fill="#C79A3E" filter="url(#rough)"/>
+          <text x="212" y="298" fill="currentColor">住宿·Haymarket(3晚)</text>
+
+          <circle cx="255" cy="405" r="5" fill="#9C948A" filter="url(#rough)"/>
+          <text x="220" y="425" fill="currentColor">悉尼机场</text>
+
+          <circle cx="172" cy="150" r="5" fill="#E1673E" filter="url(#rough)"/>
+          <text x="60" y="146" fill="currentColor">北悉尼泳池</text>
+
+          <circle cx="108" cy="345" r="4" fill="#E1673E" filter="url(#rough)"/>
+          <text x="98" y="332" fill="currentColor">Lidcombe晚餐</text>
+
+          <circle cx="85" cy="352" r="5" fill="#E1673E" filter="url(#rough)"/>
+          <text x="8" y="368" fill="currentColor">Accor Stadium</text>
+
+          <circle cx="328" cy="232" r="5" fill="#2A7F86" filter="url(#rough)"/>
+          <text x="300" y="222" fill="currentColor">Bondi</text>
+
+          <circle cx="333" cy="266" r="3.5" fill="#2A7F86" filter="url(#rough)"/>
+          <text x="337" y="264" fill="currentColor" font-size="9">Bronte/墓园</text>
+
+          <circle cx="338" cy="300" r="5" fill="#2A7F86" filter="url(#rough)"/>
+          <text x="312" y="320" fill="currentColor">Coogee</text>
+          <text x="300" y="332" fill="currentColor" font-size="9">Ross Jones/Wylie's</text>
+        </g>
+      </svg>
+      <div class="map-legend">
+        <span><span class="swatch" style="background:#9C948A"></span>10/30 抵达</span>
+        <span><span class="swatch" style="background:#E1673E"></span>10/31 泳池+演唱会</span>
+        <span><span class="swatch" style="background:#2A7F86"></span>11/1 Bondi–Coogee</span>
+        <span><span class="swatch" style="background:#16232B"></span>11/2 返程</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>已确认</h2>
+    <ul class="confirmed">
+      <li><span class="ico">✈️</span><span class="txt"><b>QF791</b> Alice Springs → Sydney<span class="meta">10月30日 12:20–16:50 · 经济舱</span></span></li>
+      <li><span class="ico">✈️</span><span class="txt"><b>QF790</b> Sydney → Alice Springs<span class="meta">11月2日 09:55–11:45 · 经济舱</span></span></li>
+      <li><span class="ico">🏨</span><span class="txt"><b>YHA Sydney Central</b><span class="meta">10月30日 14:00后入住 · 11月2日 10:00前退房 · 3晚</span></span></li>
+      <li><span class="ico">🎤</span><span class="txt"><b>BIGBANG 演唱会</b> · Accor Stadium<span class="meta">10月31日 开场17:00 · Sec 105 / Row 20 / Seat 3</span></span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>逐日行程</h2>
+    <div id="days"></div>
+  </section>
+
+  <section>
+    <h2>待办清单</h2>
+    <ul class="todo-list" id="todoList"></ul>
+    <button class="todo-reset" id="todoReset">清空勾选</button>
+  </section>
+
+  <section>
+    <h2>实用贴士</h2>
+    <ul class="tips">
+      <li>北悉尼奥林匹克泳池周末 7:00–19:00 开放,泳池比整体场馆早关30分钟</li>
+      <li>Bondi Icebergs 周日 6:30–18:30 开放;平时周四闭馆清洁,这次行程不受影响</li>
+      <li>BIGBANG 演唱会门票当天可免费乘坐悉尼全网公共交通(火车/公交/轮渡)</li>
+      <li>10月底至11月初是悉尼初夏,紫外线强,户外游泳和徒步请做好防晒</li>
+      <li>两处泳池均为现场购票入场(约 AU$6–10),建议备好零钱或银行卡</li>
+      <li>点击每天标题可展开内嵌地图——这部分需要联网才能加载,没网络时会显示提示文字,但页面其余内容(倒计时、行程、待办)仍可完全离线查看</li>
+      <li>Wylie's Baths 每天7:00开放,Ross Jones Memorial Pool 全天免费开放、无需购票</li>
+      <li>Songdo Gukbap 在 Lidcombe,离 Sydney Olympic Park 只有一站支线火车,顺路吃饭很方便;韩式汤饭偏烫口,建议别踩着点吃,留够降温和赶路的时间</li>
+    </ul>
+    <div class="risk">
+      <b>⚠ 需要你留意的几点</b>
+      <ul>
+        <li>11/2 航班 09:55 起飞,早于酒店 10:00 的退房截止时间——不是时间冲突,但意味着你要在退房截止前很久就出发,别被"10点前退房"误导成还能睡懒觉。</li>
+        <li>10/31(周六)现在是最满的一天:游泳 + 休整 + Lidcombe吃晚饭 + 赶场演唱会。晚饭留了约1小时,汤饭比较烫,如果吃得慢就把14:45出发的时间再提前一点,别卡着点走。</li>
+        <li>11/1(周日)游泳 + 6公里海岸徒步是体力叠加的一天,如果前一晚看演唱会到很晚,这天节奏可以放松一些,不必赶完全部路段。</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>此页面仅你自己可见的链接才会分享给他人 · 未包含任何确认码或房间号</footer>
+</div>
+
+<script>
+/* ---------- Data ---------- */
+const days = [
+  {
+    date: "10月30日 · 周五", note: "抵达", dateKey: "2026-10-30",
+    stops: [
+      {time:"16:50", iso:"2026-10-30T16:50:00+11:00", title:"抵达悉尼机场 T3", note:"QF791 落地,搭火车或的士进城", map:"Sydney Airport T3"},
+      {time:"约18:00", iso:"2026-10-30T18:00:00+11:00", title:"入住 YHA Sydney Central", note:"Haymarket,14:00后可办理入住", map:"YHA Sydney Central, 11 Rawson Place, Haymarket NSW"},
+      {time:"傍晚", iso:"2026-10-30T19:30:00+11:00", title:"附近觅食、早点休息", note:"为明天的长日程养精蓄锐", map:"Haymarket Sydney"}
+    ]
+  },
+  {
+    date: "10月31日 · 周六", note: "泳池 + 晚餐 + 演唱会", dateKey: "2026-10-31",
+    stops: [
+      {time:"07:00", iso:"2026-10-31T07:00:00+11:00", title:"北悉尼奥林匹克泳池", note:"户外50米泳池正对海港大桥,建议游1小时左右", map:"North Sydney Olympic Pool, Milsons Point"},
+      {time:"11:30", iso:"2026-10-31T11:30:00+11:00", title:"返回酒店休整", note:"冲个澡换身衣服,休息到下午", map:"YHA Sydney Central, Haymarket NSW"},
+      {time:"14:45", iso:"2026-10-31T14:45:00+11:00", title:"出发去 Lidcombe 吃晚饭", note:"坐T2线到Lidcombe站,车程约30分钟", map:"Lidcombe Station, NSW"},
+      {time:"15:30", iso:"2026-10-31T15:30:00+11:00", title:"SONGDO GUKBAP 晚餐", note:"韩式汤饭,演唱会前垫肚子刚好;吃完从Lidcombe站坐支线火车到Olympic Park只要几分钟", map:"Songdo Gukbap, John St, Lidcombe NSW"},
+      {time:"16:45", iso:"2026-10-31T16:45:00+11:00", title:"前往 Accor Stadium", note:"Lidcombe到Olympic Park的支线火车很短,几分钟就到", map:"Accor Stadium, Sydney Olympic Park"},
+      {time:"17:00", iso:"2026-10-31T17:00:00+11:00", title:"BIGBANG 演唱会入场", note:"开场17:00,演出约19:30开始 · Sec 105", map:"Accor Stadium, Sydney Olympic Park"}
+    ]
+  },
+  {
+    date: "11月1日 · 周日", note: "Bondi 到 Coogee", dateKey: "2026-11-01",
+    stops: [
+      {time:"06:30", iso:"2026-11-01T06:30:00+11:00", title:"Bondi Icebergs 泳池", note:"悬崖边海水泳池,早点去避开人流", map:"Bondi Icebergs Pool"},
+      {time:"08:30", iso:"2026-11-01T08:30:00+11:00", title:"沿海岸步道南下,经过Tamarama", note:"Bondi到Coogee步道正式起点", map:"Tamarama Beach"},
+      {time:"09:00", iso:"2026-11-01T09:00:00+11:00", title:"Bronte Baths", note:"崖壁边的海水泳池,可以下水泡一下", map:"Bronte Baths, Bronte Beach"},
+      {time:"09:30", iso:"2026-11-01T09:30:00+11:00", title:"Waverley Cemetery", note:"悬崖顶的历史墓园,俯瞰太平洋,拍照很出片", map:"Waverley Cemetery"},
+      {time:"10:15", iso:"2026-11-01T10:15:00+11:00", title:"经过 Clovelly、Gordons Bay", note:"Gordons Bay是浮潜点,水清可看鱼", map:"Gordons Bay Coogee"},
+      {time:"11:00", iso:"2026-11-01T11:00:00+11:00", title:"Ross Jones Memorial Pool", note:"Coogee海滩南端的礁石泳池,城堡状池壁很特别", map:"Ross Jones Memorial Pool, Coogee"},
+      {time:"11:15", iso:"2026-11-01T11:15:00+11:00", title:"Wylie's Baths", note:"再往南约300米,悬崖边的木栈道泳池,适合再下一次水", map:"Wylie's Baths, Coogee"},
+      {time:"12:00", iso:"2026-11-01T12:00:00+11:00", title:"Coogee Beach 午餐休息", note:"可坐373/374路公交直接返回市区", map:"Coogee Beach"}
+    ]
+  },
+  {
+    date: "11月2日 · 周一", note: "返程", dateKey: "2026-11-02",
+    stops: [
+      {time:"07:15", iso:"2026-11-02T07:15:00+11:00", title:"退房出发去机场", note:"坐T8线直达Domestic Airport站,约13分钟", map:"YHA Sydney Central, Haymarket NSW"},
+      {time:"09:55", iso:"2026-11-02T09:55:00+11:00", title:"QF790 起飞", note:"悉尼 → 爱丽斯泉", map:"Sydney Airport T3"}
+    ]
+  }
+];
+
+const todos = [
+  "打包泳衣、泳镜、快干毛巾",
+  "手机里存好演唱会电子票(AXS App)",
+  "两处泳池备好现金/银行卡(入场费约$6–10)",
+  "查看周六悉尼天气,带好防晒和帽子",
+  "演唱会当天穿好走路的鞋",
+  "check国内航班行李额度"
+];
+
+/* ---------- Render days ---------- */
+const daysEl = document.getElementById('days');
+const sydToday = new Date(new Date().toLocaleString('en-US', {timeZone:'Australia/Sydney'})).toDateString();
+
+days.forEach((day, di) => {
+  const block = document.createElement('div');
+  block.className = 'day-block';
+  if (new Date(day.dateKey + 'T00:00:00').toDateString() === sydToday) block.classList.add('today');
+
+  const head = document.createElement('div');
+  head.className = 'day-head';
+  head.innerHTML = `<div><div class="d-title">${day.date}</div><div class="d-sub">${day.note}</div></div>`;
+  const btn = document.createElement('button');
+  btn.className = 'day-route-btn';
+  btn.textContent = '一键导航 →';
+  btn.title = '在 Google 地图 App / 网页打开逐点导航';
+  btn.onclick = (e) => { e.stopPropagation(); openDayRoute(day.stops); };
+  head.appendChild(btn);
+  block.appendChild(head);
+
+  // inline embedded map (expand/collapse on head click, lazy-loaded)
+  const mapPanel = document.createElement('div');
+  mapPanel.className = 'day-map';
+  mapPanel.innerHTML = `<div class="map-fallback">地图在有网络时嵌入显示 · 点击上方标题折叠</div>`;
+  block.appendChild(mapPanel);
+  let mapLoaded = false;
+  head.addEventListener('click', () => {
+    const opening = !mapPanel.classList.contains('open');
+    mapPanel.classList.toggle('open');
+    if (opening && !mapLoaded) {
+      const iframe = document.createElement('iframe');
+      iframe.loading = 'lazy';
+      iframe.src = buildEmbedUrl(day.stops);
+      iframe.onerror = () => { mapPanel.innerHTML = `<div class="map-fallback">当前无网络,地图暂时无法显示 —— 其余内容仍可离线查看</div>`; };
+      mapPanel.prepend(iframe);
+      mapLoaded = true;
+    }
+  });
+
+  const tl = document.createElement('div');
+  tl.className = 'timeline';
+  day.stops.forEach(stop => {
+    const item = document.createElement('div');
+    item.className = 't-item';
+    item.innerHTML = `
+      <div class="t-time">${stop.time}</div>
+      <div class="t-title" data-map="${encodeURIComponent(stop.map)}">${stop.title}</div>
+      <div class="t-note">${stop.note}</div>
+    `;
+    tl.appendChild(item);
+  });
+  block.appendChild(tl);
+  daysEl.appendChild(block);
+});
+
+function buildEmbedUrl(stops){
+  // no-API-key embed: single point uses q=, multi-stop uses saddr/daddr chain
+  if (stops.length === 1) {
+    return `https://maps.google.com/maps?q=${encodeURIComponent(stops[0].map)}&output=embed`;
+  }
+  const origin = encodeURIComponent(stops[0].map);
+  const rest = stops.slice(1).map(s => encodeURIComponent(s.map)).join('+to:');
+  return `https://maps.google.com/maps?saddr=${origin}&daddr=${rest}&output=embed`;
+}
+
+daysEl.addEventListener('click', (e) => {
+  if (e.target.classList.contains('t-title')) {
+    const q = e.target.getAttribute('data-map');
+    window.open(`https://www.google.com/maps/search/?api=1&query=${q}`, '_blank');
+  }
+});
+
+function openDayRoute(stops){
+  const points = stops.map(s => encodeURIComponent(s.map));
+  const destination = points[points.length - 1];
+  const origin = points[0];
+  const waypoints = points.slice(1, -1).join('|');
+  let url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}`;
+  if (waypoints) url += `&waypoints=${waypoints}`;
+  window.open(url, '_blank');
+}
+
+/* ---------- Todo list (persisted in this browser) ---------- */
+const todoListEl = document.getElementById('todoList');
+todos.forEach((text, i) => {
+  const id = 'todo-' + i;
+  const li = document.createElement('li');
+  li.innerHTML = `<input type="checkbox" id="${id}"><label for="${id}">${text}</label>`;
+  todoListEl.appendChild(li);
+  const cb = li.querySelector('input');
+  const saved = localStorage.getItem(id);
+  if (saved === '1') { cb.checked = true; li.classList.add('done'); }
+  cb.addEventListener('change', () => {
+    localStorage.setItem(id, cb.checked ? '1' : '0');
+    li.classList.toggle('done', cb.checked);
+  });
+});
+document.getElementById('todoReset').onclick = () => {
+  todos.forEach((_, i) => localStorage.removeItem('todo-' + i));
+  document.querySelectorAll('.todo-list input').forEach(cb => { cb.checked = false; cb.closest('li').classList.remove('done'); });
+};
+
+/* ---------- Countdown to next event ---------- */
+const allEvents = days.flatMap(d => d.stops.map(s => ({...s, dayLabel: d.date})));
+function updateCountdown(){
+  const now = new Date();
+  const next = allEvents.find(e => new Date(e.iso) > now);
+  const focusEvent = document.getElementById('focusEvent');
+  const focusTime = document.getElementById('focusTime');
+  if (!next){
+    focusEvent.textContent = '行程已结束 · 祝旅途愉快 ✈️';
+    focusTime.textContent = '';
+    ['cd-d','cd-h','cd-m','cd-s'].forEach(id => document.getElementById(id).textContent = '–');
+    return;
+  }
+  focusEvent.textContent = next.title;
+  focusTime.textContent = `${next.dayLabel} · ${next.time}`;
+  const diff = new Date(next.iso) - now;
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  document.getElementById('cd-d').textContent = d;
+  document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+  document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+  document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+/* ---------- Day / night theme ---------- */
+function updateTheme(){
+  const hour = new Date().getHours();
+  const isNight = hour < 6 || hour >= 18;
+  document.body.setAttribute('data-theme', isNight ? 'night' : 'day');
+  document.getElementById('themeNote').textContent = isNight ? '夜间模式' : '日间模式';
+}
+updateTheme();
+setInterval(updateTheme, 60000);
+</script>
+</body>
+</html>
