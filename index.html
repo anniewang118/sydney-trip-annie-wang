@@ -145,15 +145,6 @@
     font-family:"Helvetica Neue",Arial,sans-serif;
     font-size:11px;opacity:.6;
   }
-  .day-route-btn{
-    font-family:"Helvetica Neue",Arial,sans-serif;
-    font-size:11px;
-    background:none;border:1px solid var(--harbor-2);
-    color:var(--harbor-2);
-    padding:5px 10px;border-radius:20px;cursor:pointer;
-    white-space:nowrap;
-  }
-  .day-route-btn:hover{background:var(--harbor-2);color:var(--paper);}
 
   .day-block.today .day-head{
     border-color:var(--coral);
@@ -162,7 +153,6 @@
   .day-block.today .day-head .d-title,
   .day-block.today .day-head .d-sub{color:var(--paper);}
   .day-block.today .day-head .d-sub::before{content:"今天 · ";font-weight:700;}
-  .day-block.today .day-route-btn{border-color:var(--paper);color:var(--paper);}
 
   .day-map{
     max-height:0;overflow:hidden;
@@ -195,12 +185,20 @@
     font-family:"Helvetica Neue",Arial,sans-serif;
     font-size:11px;color:var(--coral);font-weight:700;
   }
+  .t-row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:2px 0;}
   .t-title{
-    font-size:15.5px;margin:2px 0;cursor:pointer;
-    text-decoration:underline dotted var(--line);
-    text-underline-offset:3px;
+    font-size:15.5px;
   }
-  .t-title:hover{color:var(--harbor-2);}
+  .nav-btn{
+    flex-shrink:0;
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:10.5px;
+    background:none;border:1px solid var(--harbor-2);
+    color:var(--harbor-2);
+    padding:3px 9px;border-radius:20px;cursor:pointer;
+    white-space:nowrap;
+  }
+  .nav-btn:hover{background:var(--harbor-2);color:var(--paper);}
   .t-note{
     font-family:"Helvetica Neue",Arial,sans-serif;
     font-size:12.5px;opacity:.72;
@@ -321,7 +319,7 @@
           <text x="150" y="126" fill="currentColor" font-size="9">Kirribilli蓝花楹</text>
 
           <circle cx="218" cy="255" r="4" fill="#2A7F86" filter="url(#rough)"/>
-          <text x="228" y="253" fill="currentColor">歌剧院(周日待定)</text>
+          <text x="228" y="253" fill="currentColor">Circular Quay/歌剧院</text>
 
           <circle cx="108" cy="345" r="4" fill="#E1673E" filter="url(#rough)"/>
           <text x="98" y="332" fill="currentColor">Lidcombe晚餐</text>
@@ -437,16 +435,18 @@ const days = [
   {
     date: "11月1日 · 周日", note: "Bondi 到 Coogee", dateKey: "2026-11-01",
     stops: [
-      {time:"06:30", iso:"2026-11-01T06:30:00+11:00", title:"Bondi Icebergs 泳池", note:"悬崖边海水泳池,早点去避开人流", map:"Bondi Icebergs Pool"},
-      {time:"08:30", iso:"2026-11-01T08:30:00+11:00", title:"沿海岸步道南下,经过Tamarama", note:"Bondi到Coogee步道正式起点", map:"Tamarama Beach"},
-      {time:"09:00", iso:"2026-11-01T09:00:00+11:00", title:"Bronte Baths", note:"崖壁边的海水泳池,可以下水泡一下", map:"Bronte Baths, Bronte Beach"},
-      {time:"09:30", iso:"2026-11-01T09:30:00+11:00", title:"Waverley Cemetery", note:"悬崖顶的历史墓园,俯瞰太平洋,拍照很出片", map:"Waverley Cemetery"},
-      {time:"10:15", iso:"2026-11-01T10:15:00+11:00", title:"经过 Clovelly、Gordons Bay", note:"Gordons Bay是浮潜点,水清可看鱼", map:"Gordons Bay Coogee"},
-      {time:"11:00", iso:"2026-11-01T11:00:00+11:00", title:"Ross Jones Memorial Pool", note:"Coogee海滩南端的礁石泳池,城堡状池壁很特别", map:"Ross Jones Memorial Pool, Coogee"},
-      {time:"11:15", iso:"2026-11-01T11:15:00+11:00", title:"Wylie's Baths", note:"再往南约300米,悬崖边的木栈道泳池,适合再下一次水", map:"Wylie's Baths, Coogee"},
-      {time:"12:00", iso:"2026-11-01T12:00:00+11:00", title:"Coogee Beach 午餐休息", note:"可坐373/374路公交直接返回市区", map:"Coogee Beach"},
-      {time:"14:00", iso:"2026-11-01T14:00:00+11:00", title:"返回市区休整", note:"给晚上留出体力和时间", map:"YHA Sydney Central, Haymarket NSW"},
-      {time:"17:00", iso:"2026-11-01T17:00:00+11:00", title:"打开TodayTix App查看当晚Rush/Lottery", note:"看当天悉尼歌剧院有哪部剧放出折扣名额,中签再买票,具体剧目和时间要到当天才知道", map:"Sydney Opera House"},
+      {time:"08:30", iso:"2026-11-01T08:30:00+11:00", title:"Bondi Icebergs 泳池", note:"悬崖边海水泳池,开门到18:30,不用太赶", map:"Bondi Icebergs Pool"},
+      {time:"10:00", iso:"2026-11-01T10:00:00+11:00", title:"沿海岸步道南下,经过Tamarama", note:"Bondi到Coogee步道正式起点", map:"Tamarama Beach"},
+      {time:"10:30", iso:"2026-11-01T10:30:00+11:00", title:"Bronte Baths", note:"崖壁边的海水泳池,可以下水泡一下", map:"Bronte Baths, Bronte Beach"},
+      {time:"11:00", iso:"2026-11-01T11:00:00+11:00", title:"Waverley Cemetery", note:"悬崖顶的历史墓园,俯瞰太平洋,拍照很出片", map:"Waverley Cemetery"},
+      {time:"11:45", iso:"2026-11-01T11:45:00+11:00", title:"经过 Clovelly、Gordons Bay", note:"Gordons Bay是浮潜点,水清可看鱼", map:"Gordons Bay Coogee"},
+      {time:"12:30", iso:"2026-11-01T12:30:00+11:00", title:"Ross Jones Memorial Pool", note:"Coogee海滩南端的礁石泳池,城堡状池壁很特别", map:"Ross Jones Memorial Pool, Coogee"},
+      {time:"12:45", iso:"2026-11-01T12:45:00+11:00", title:"Wylie's Baths", note:"再往南约300米,悬崖边的木栈道泳池,适合再下一次水", map:"Wylie's Baths, Coogee"},
+      {time:"13:30", iso:"2026-11-01T13:30:00+11:00", title:"Coogee Beach 午餐休息", note:"可坐373/374路公交直接返回市区", map:"Coogee Beach"},
+      {time:"15:30", iso:"2026-11-01T15:30:00+11:00", title:"返回市区休整", note:"给晚上留出体力和时间", map:"YHA Sydney Central, Haymarket NSW"},
+      {time:"16:30", iso:"2026-11-01T16:30:00+11:00", title:"前往 Circular Quay", note:"City Circle线,约10-15分钟", map:"Circular Quay Station, Sydney"},
+      {time:"17:00", iso:"2026-11-01T17:00:00+11:00", title:"Circular Quay 车站拍照", note:"被很多人称为南半球最美的火车站之一,傍晚这个时段光线好,月台上能直接框住海港大桥和歌剧院", map:"Circular Quay Station, Sydney"},
+      {time:"17:30", iso:"2026-11-01T17:30:00+11:00", title:"打开TodayTix App查看当晚Rush/Lottery", note:"看当天悉尼歌剧院有哪部剧放出折扣名额,中签再买票,具体剧目和时间要到当天才知道", map:"Sydney Opera House"},
       {time:"约19:00", iso:"2026-11-01T19:00:00+11:00", title:"歌剧院看演出(具体剧目待定)", note:"时间以TodayTix当天实际放出的场次为准,这里只是占位", map:"Sydney Opera House"}
     ]
   },
@@ -483,12 +483,6 @@ days.forEach((day, di) => {
   const head = document.createElement('div');
   head.className = 'day-head';
   head.innerHTML = `<div><div class="d-title">${day.date}</div><div class="d-sub">${day.note}</div></div>`;
-  const btn = document.createElement('button');
-  btn.className = 'day-route-btn';
-  btn.textContent = '一键导航 →';
-  btn.title = '在 Google 地图 App / 网页打开逐点导航';
-  btn.onclick = (e) => { e.stopPropagation(); openDayRoute(day.stops); };
-  head.appendChild(btn);
   block.appendChild(head);
 
   // inline embedded map (expand/collapse on head click, lazy-loaded)
@@ -517,7 +511,10 @@ days.forEach((day, di) => {
     item.className = 't-item';
     item.innerHTML = `
       <div class="t-time">${stop.time}</div>
-      <div class="t-title" data-map="${encodeURIComponent(stop.map)}">${stop.title}</div>
+      <div class="t-row">
+        <div class="t-title">${stop.title}</div>
+        <button class="nav-btn" data-map="${encodeURIComponent(stop.map)}">🧭 导航</button>
+      </div>
       <div class="t-note">${stop.note}</div>
     `;
     tl.appendChild(item);
@@ -537,21 +534,12 @@ function buildEmbedUrl(stops){
 }
 
 daysEl.addEventListener('click', (e) => {
-  if (e.target.classList.contains('t-title')) {
+  if (e.target.classList.contains('nav-btn')) {
     const q = e.target.getAttribute('data-map');
-    window.open(`https://www.google.com/maps/search/?api=1&query=${q}`, '_blank');
+    // no origin specified: Google Maps app/web uses current location automatically
+    window.open(`https://www.google.com/maps/dir/?api=1&destination=${q}`, '_blank');
   }
 });
-
-function openDayRoute(stops){
-  const points = stops.map(s => encodeURIComponent(s.map));
-  const destination = points[points.length - 1];
-  const origin = points[0];
-  const waypoints = points.slice(1, -1).join('|');
-  let url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}`;
-  if (waypoints) url += `&waypoints=${waypoints}`;
-  window.open(url, '_blank');
-}
 
 /* ---------- Todo list (persisted in this browser) ---------- */
 const todoListEl = document.getElementById('todoList');
