@@ -221,6 +221,13 @@
     font-size:11px;color:var(--line);text-decoration:underline;cursor:pointer;padding:0;
   }
 
+  .pack-group{margin-bottom:14px;}
+  .pack-group h3{
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:11.5px;font-weight:700;color:var(--gold);
+    margin:0 0 4px;text-transform:uppercase;letter-spacing:.5px;
+  }
+
   /* Tips + risk */
   .tips{padding-left:0;list-style:none;margin:0;}
   .tips li{
@@ -366,6 +373,12 @@
     <h2>待办清单</h2>
     <ul class="todo-list" id="todoList"></ul>
     <button class="todo-reset" id="todoReset">清空勾选</button>
+  </section>
+
+  <section>
+    <h2>行李清单</h2>
+    <div id="packing"></div>
+    <button class="todo-reset" id="packReset">清空勾选</button>
   </section>
 
   <section>
@@ -559,6 +572,82 @@ todos.forEach((text, i) => {
 document.getElementById('todoReset').onclick = () => {
   todos.forEach((_, i) => localStorage.removeItem('todo-' + i));
   document.querySelectorAll('.todo-list input').forEach(cb => { cb.checked = false; cb.closest('li').classList.remove('done'); });
+};
+
+/* ---------- Packing list (grouped, persisted in this browser) ---------- */
+const packing = [
+  { group: "游泳(北悉尼泳池 / Icebergs / Bronte / Ross Jones / Wylie's)", items: [
+    "泳衣泳裤(带2套轮流穿,总有一套是湿的)",
+    "泳镜",
+    "快干浴巾",
+    "人字拖/凉鞋",
+    "防水手机袋",
+    "装湿泳衣的密封袋/防水袋"
+  ]},
+  { group: "海岸徒步(Bondi–Coogee 6公里)", items: [
+    "舒适好走的运动鞋",
+    "帽子",
+    "太阳镜",
+    "高倍数防晒霜",
+    "小水瓶"
+  ]},
+  { group: "演唱会(Accor Stadium,露天看台)", items: [
+    "轻薄外套(晚上会降温)",
+    "耐站/耐走的鞋",
+    "充电宝",
+    "小包(方便过安检,别带大背包)"
+  ]},
+  { group: "歌剧院(周日晚,TodayTix)", items: [
+    "稍微正式一点的衣服(非强制,但氛围更配)",
+    "一件薄外套(室内空调偏凉)"
+  ]},
+  { group: "蓝花楹拍照(周六早,Kirribilli)", items: [
+    "一件薄外套(清晨偏凉)",
+    "手机/相机电量充足"
+  ]},
+  { group: "证件与支付", items: [
+    "澳洲驾照(国内航班身份证明已经够用,不需要带护照)",
+    "银行卡/手机支付(公交地铁可直接拍卡,同一张卡/同一台手机全程用)",
+    "少量现金(部分泳池只收现金)"
+  ]},
+  { group: "无托运注意(全程国内段,不受100ml限制)", items: [
+    "化妆品/洗漱用品可以带正装瓶,不用分装小瓶、不用透明袋",
+    "手提行李控制在10kg内(总手提上限13kg),液体压秤,精简着带",
+    "喷雾类(防晒喷雾等)检查瓶盖/阀门完好",
+    "给演唱会周边(灯牌等)留出回程行李空间和重量余量"
+  ]},
+  { group: "通用", items: [
+    "手机充电线",
+    "自己常用的药品",
+    "一件防风/防雨外套(悉尼春末天气多变)"
+  ]}
+];
+const packEl = document.getElementById('packing');
+packing.forEach((grp, gi) => {
+  const div = document.createElement('div');
+  div.className = 'pack-group';
+  const ul = document.createElement('ul');
+  ul.className = 'todo-list';
+  grp.items.forEach((text, ii) => {
+    const id = 'pack-' + gi + '-' + ii;
+    const li = document.createElement('li');
+    li.innerHTML = `<input type="checkbox" id="${id}"><label for="${id}">${text}</label>`;
+    ul.appendChild(li);
+    const cb = li.querySelector('input');
+    const saved = localStorage.getItem(id);
+    if (saved === '1') { cb.checked = true; li.classList.add('done'); }
+    cb.addEventListener('change', () => {
+      localStorage.setItem(id, cb.checked ? '1' : '0');
+      li.classList.toggle('done', cb.checked);
+    });
+  });
+  div.innerHTML = `<h3>${grp.group}</h3>`;
+  div.appendChild(ul);
+  packEl.appendChild(div);
+});
+document.getElementById('packReset').onclick = () => {
+  packing.forEach((grp, gi) => grp.items.forEach((_, ii) => localStorage.removeItem('pack-' + gi + '-' + ii)));
+  packEl.querySelectorAll('input').forEach(cb => { cb.checked = false; cb.closest('li').classList.remove('done'); });
 };
 
 /* ---------- Countdown to next event ---------- */
