@@ -306,7 +306,7 @@
           <path d="M338,300 Q270,320 200,300" stroke="#2A7F86" stroke-width="2.5" stroke-dasharray="1 7"/>
           <!-- day4: hotel -> airport -->
           <path d="M200,300 Q235,360 255,405" stroke="#16232B" stroke-width="2.5" stroke-dasharray="1 7"/>
-          <!-- day3 evening: hotel -> opera house (TodayTix TBD) -->
+          <!-- day3 evening: hotel -> circular quay / sunset ferry -->
           <path d="M200,300 Q210,275 218,255" stroke="#2A7F86" stroke-width="2" stroke-dasharray="1 6"/>
           <!-- day2 pre-dawn: milsons point -> kirribilli jacaranda -->
           <path d="M172,150 Q180,142 186,138" stroke="#E1673E" stroke-width="2" stroke-dasharray="1 6"/>
@@ -326,7 +326,7 @@
           <text x="150" y="126" fill="currentColor" font-size="9">Kirribilli蓝花楹</text>
 
           <circle cx="218" cy="255" r="4" fill="#2A7F86" filter="url(#rough)"/>
-          <text x="228" y="253" fill="currentColor">Circular Quay/歌剧院</text>
+          <text x="228" y="253" fill="currentColor">Circular Quay/日落轮渡</text>
 
           <circle cx="108" cy="345" r="4" fill="#E1673E" filter="url(#rough)"/>
           <text x="98" y="332" fill="currentColor">Lidcombe晚餐</text>
@@ -400,11 +400,7 @@
       <li>演唱会:大型专业相机/可换镜头相机通常不让带入场,普通相机和手机没问题</li>
       <li>演唱会:Accor Stadium是露天看台,傍晚会降温,带件薄外套</li>
       <li>演唱会:散场人特别多,不赶时间的话可以在座位上多坐10-15分钟再走,避开涌向车站的人潮</li>
-      <li>歌剧院:没有硬性着装要求,牛仔裤球鞋也能进,但大部分人会穿得稍微正式一些</li>
-      <li>歌剧院:建议提前30分钟到场,迟到者通常要等中场休息才能入座,错过开场部分</li>
-      <li>歌剧院:演出中禁止拍照录像,手机记得调静音或关机</li>
-      <li>歌剧院:大背包建议进场前寄存,带小包更方便通过安检和找座位</li>
-      <li>周日晚上的歌剧院演出走的是TodayTix的Rush/Lottery通道,只对它们代理的剧目开放,不是每部戏都有;具体几点放名额、能不能中,因剧目而异,建议当天早上就打开App查看</li>
+      <li>轮渡日落:11月1日悉尼日落约19:15,想拍到最好的光线记得掐着这个时间往回坐</li>
     </ul>
     <div class="risk">
       <b>⚠ 需要你留意的几点</b>
@@ -412,7 +408,7 @@
         <li>11/2 航班 09:55 起飞,早于酒店 10:00 的退房截止时间——不是时间冲突,但意味着你要在退房截止前很久就出发,别被"10点前退房"误导成还能睡懒觉。</li>
         <li>晚饭时间已经放宽到约1小时,18点到场留出1.5小时缓冲,不用再赶时间。</li>
         <li>蓝花楹在10月底还没到盛花期(11月中旬才是),特地去看,可能只是半开的状态,心理预期放低一点。</li>
-        <li>11/1(周日)游泳 + 6公里海岸徒步 + 晚上还要赶TodayTix看演出,是体力和时间都叠加的一天;如果Rush/Lottery没中签,晚上这段就是空的,建议提前想好Plan B(比如直接买官网普通票,或者干脆当晚放松不排歌剧院)。</li>
+        <li>11/1(周日)游泳 + 6公里海岸徒步 + 傍晚轮渡看日落,活动量不小;轮渡这段纯粹是放松看风景,不用赶时间,累了可以直接跳过,留在Coogee/市区休息也行。</li>
       </ul>
     </div>
   </section>
@@ -449,6 +445,7 @@ const days = [
     date: "11月1日 · 周日", note: "Bondi 到 Coogee", dateKey: "2026-11-01",
     stops: [
       {time:"08:30", iso:"2026-11-01T08:30:00+11:00", title:"Bondi Icebergs 泳池", note:"悬崖边海水泳池,开门到18:30,不用太赶", map:"Bondi Icebergs Pool"},
+      {time:"09:40", iso:"2026-11-01T09:40:00+11:00", title:"Love Letters 复古拍照亭", note:"95 Gould St,离Icebergs走路几分钟;老式胶片拍照亭,$9三连拍两张出片,只收卡", map:"Love Letters Photobooth, 95 Gould Street, Bondi Beach"},
       {time:"10:00", iso:"2026-11-01T10:00:00+11:00", title:"沿海岸步道南下,经过Tamarama", note:"Bondi到Coogee步道正式起点", map:"Tamarama Beach"},
       {time:"10:30", iso:"2026-11-01T10:30:00+11:00", title:"Bronte Baths", note:"崖壁边的海水泳池,可以下水泡一下", map:"Bronte Baths, Bronte Beach"},
       {time:"11:00", iso:"2026-11-01T11:00:00+11:00", title:"Waverley Cemetery", note:"悬崖顶的历史墓园,俯瞰太平洋,拍照很出片", map:"Waverley Cemetery"},
@@ -459,8 +456,9 @@ const days = [
       {time:"15:30", iso:"2026-11-01T15:30:00+11:00", title:"返回市区休整", note:"给晚上留出体力和时间", map:"YHA Sydney Central, Haymarket NSW"},
       {time:"16:30", iso:"2026-11-01T16:30:00+11:00", title:"前往 Circular Quay", note:"City Circle线,约10-15分钟", map:"Circular Quay Station, Sydney"},
       {time:"17:00", iso:"2026-11-01T17:00:00+11:00", title:"Circular Quay 车站拍照", note:"被很多人称为南半球最美的火车站之一,傍晚这个时段光线好,月台上能直接框住海港大桥和歌剧院", map:"Circular Quay Station, Sydney"},
-      {time:"17:30", iso:"2026-11-01T17:30:00+11:00", title:"打开TodayTix App查看当晚Rush/Lottery", note:"看当天悉尼歌剧院有哪部剧放出折扣名额,中签再买票,具体剧目和时间要到当天才知道", map:"Sydney Opera House"},
-      {time:"约19:00", iso:"2026-11-01T19:00:00+11:00", title:"歌剧院看演出(具体剧目待定)", note:"时间以TodayTix当天实际放出的场次为准,这里只是占位", map:"Sydney Opera House"}
+      {time:"17:20", iso:"2026-11-01T17:20:00+11:00", title:"坐公共轮渡去Taronga Zoo方向", note:"用Opal卡/银行卡直接拍卡,跟火车公交同一套系统;单程约12分钟", map:"Circular Quay Ferry Wharf, Sydney"},
+      {time:"19:00", iso:"2026-11-01T19:00:00+11:00", title:"返程轮渡回Circular Quay", note:"11月1日悉尼日落约19:15,回程船正对着歌剧院和天际线,逆光金色最出片,今晚就以这段日落为主", map:"Circular Quay Ferry Wharf, Sydney"},
+      {time:"19:30", iso:"2026-11-01T19:30:00+11:00", title:"Circular Quay附近吃晚饭", note:"看完日落随便找地方吃饭,轻松收尾", map:"Circular Quay Sydney"}
     ]
   },
   {
@@ -596,10 +594,6 @@ const packing = [
     "耐站/耐走的鞋",
     "充电宝",
     "小包(方便过安检,别带大背包)"
-  ]},
-  { group: "歌剧院(周日晚,TodayTix)", items: [
-    "稍微正式一点的衣服(非强制,但氛围更配)",
-    "一件薄外套(室内空调偏凉)"
   ]},
   { group: "蓝花楹拍照(周六早,Kirribilli)", items: [
     "一件薄外套(清晨偏凉)",
