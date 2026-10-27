@@ -396,6 +396,8 @@
       <li>公交车不会自动停,要伸手示意司机才会靠站;公交上不收现金</li>
       <li>平日每天花费封顶约AU$19.30,周五-周日封顶约AU$9.65,超过封顶当天免费,机场站附加费不计入封顶范围内</li>
       <li>60分钟内换乘不同交通工具(火车/公交/轮渡/轻轨)有约AU$2的换乘优惠,系统自动计算不用操作</li>
+      <li>购物:Paddy's Markets周三到周日10:00-18:00营业,周一周二不开;DFO Homebush周六10:00-18:00营业</li>
+      <li>购物:只带手提行李,总重上限10kg,Outlet和市场买的东西尽量买轻的,逛完outlet去演唱会别拎大袋子(体育场偏好小包)</li>
       <li>演唱会:AXS电子票提前截图备份,手机记得充满电</li>
       <li>演唱会:大型专业相机/可换镜头相机通常不让带入场,普通相机和手机没问题</li>
       <li>演唱会:Accor Stadium是露天看台,傍晚会降温,带件薄外套</li>
@@ -430,12 +432,17 @@ const days = [
     ]
   },
   {
-    date: "10月31日 · 周六", note: "泳池 + 蓝花楹 + 晚餐 + 演唱会", dateKey: "2026-10-31",
+    date: "10月31日 · 周六", note: "泳池 + 蓝花楹 + 购物 + 晚餐 + 演唱会", dateKey: "2026-10-31",
     stops: [
       {time:"07:00", iso:"2026-10-31T07:00:00+11:00", title:"北悉尼奥林匹克泳池", note:"户外50米泳池正对海港大桥,游1小时左右", map:"North Sydney Olympic Pool, Milsons Point"},
       {time:"08:00", iso:"2026-10-31T08:00:00+11:00", title:"McDougall Street 看蓝花楹", note:"Kirribilli,离泳池步行约10分钟;10月底还不是盛花期(11月中旬才是),能看到但不一定满树紫色,做好心理准备", map:"McDougall Street, Kirribilli NSW"},
-      {time:"09:00", iso:"2026-10-31T09:00:00+11:00", title:"返回酒店", note:"从Milsons Point坐火车回Central,约20分钟", map:"YHA Sydney Central, Haymarket NSW"},
-      {time:"15:30", iso:"2026-10-31T15:30:00+11:00", title:"出发去 Lidcombe 吃晚饭", note:"坐T2线到Lidcombe站,车程约30分钟", map:"Lidcombe Station, NSW"},
+      {time:"09:00", iso:"2026-10-31T09:00:00+11:00", title:"返回酒店,放下湿泳衣", note:"从Milsons Point坐火车回Central,约20分钟", map:"YHA Sydney Central, Haymarket NSW"},
+      {time:"10:00", iso:"2026-10-31T10:00:00+11:00", title:"Paddy's Markets 逛亚洲市场", note:"周三到周日10:00-18:00营业(周一周二不开),离酒店走路几分钟,卖衣服、纪念品、零食、生鲜", map:"Paddy's Markets Haymarket, Sydney"},
+      {time:"11:15", iso:"2026-10-31T11:15:00+11:00", title:"Market City + 唐人街午餐", note:"Market City就在Paddy's旁边,Dixon St一带亚洲超市、药妆店、小吃密集", map:"Market City Haymarket, Sydney"},
+      {time:"12:30", iso:"2026-10-31T12:30:00+11:00", title:"回酒店放下购物袋", note:"手提行李限重10kg,买的东西先放下,别带去逛outlet和演唱会", map:"YHA Sydney Central, Haymarket NSW"},
+      {time:"12:45", iso:"2026-10-31T12:45:00+11:00", title:"坐火车去 DFO Homebush", note:"Central到Strathfield约15分钟再换526路公交,或在Homebush站下车步行约8分钟,出发前用谷歌地图看实时路线", map:"Homebush Station, NSW"},
+      {time:"13:30", iso:"2026-10-31T13:30:00+11:00", title:"DFO Homebush 逛outlet", note:"周六10:00-18:00营业,有Polo Ralph Lauren、Converse、Fossil、Country Road等,折扣最高约7折以内;在Sydney Olympic Park旁边,顺路去演唱会", map:"DFO Homebush, 3-5 Underwood Rd, Homebush NSW"},
+      {time:"15:30", iso:"2026-10-31T15:30:00+11:00", title:"从 Homebush 去 Lidcombe", note:"坐火车往Lidcombe方向,只有几站,购物袋记得控制数量", map:"Lidcombe Station, NSW"},
       {time:"16:15", iso:"2026-10-31T16:15:00+11:00", title:"SONGDO GUKBAP 晚餐", note:"不用赶,留了约1小时,可以从容吃完再走", map:"Songdo Gukbap, John St, Lidcombe NSW"},
       {time:"17:35", iso:"2026-10-31T17:35:00+11:00", title:"前往 Accor Stadium", note:"Lidcombe到Olympic Park的支线火车很短,几分钟就到", map:"Accor Stadium, Sydney Olympic Park"},
       {time:"18:00", iso:"2026-10-31T18:00:00+11:00", title:"BIGBANG 演唱会入场", note:"开场19:30,是坐席不用抢位置,18点到留1.5小时buffer足够安检+找座位,不用卡着17点doors一开就去", map:"Accor Stadium, Sydney Olympic Park"}
